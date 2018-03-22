@@ -22,19 +22,13 @@ trait LazyFunctor[F[_], A] {
 }
 
 // LazyFunctor является функтором... неожиданно=)
-implicit def lazyFunctorFunctor[F[_]]: Functor[({type LF[A] = LazyFunctor[F, A]})#LF] = new Functor[({type LF[A] = LazyFunctor[F, A]})#LF] {
-  def map[A, B](fa: LazyFunctor[F, A])(f: A => B): LazyFunctor[F, B] = new LazyFunctor[F, B] {
-    def transformation[C](g: B => C): F[C] = fa.transformation(f andThen g)
-  }
-}
+implicit def lazyFunctorFunctor[F[_]]: Functor[({type LF[A] = LazyFunctor[F, A]})#LF] = ???
 
 // и из любого функтора можно сделать LazyFunctor
-def toLazyFunctor[F[_], A](fa: F[A])(implicit F: Functor[F]): LazyFunctor[F, A] = new LazyFunctor[F, A] {
-  def transformation[B](f: A => B) = F.map(fa)(f)
-}
+def toLazyFunctor[F[_], A](fa: F[A])(implicit F: Functor[F]): LazyFunctor[F, A] = ???
 
 // обратное так же гарантировано
-def fromLazyFunctor[F[_], A](lf: LazyFunctor[F, A]): F[A] = lf.run
+def fromLazyFunctor[F[_], A](lf: LazyFunctor[F, A]): F[A] = ???
 
 object LazyFunctor {
   // для удобства использования map на LazyFunctor
